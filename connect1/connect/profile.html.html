@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page Title</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+
+	<body>
+
+	
+		<p id='welcome'></p>
+		<button type="button" onclick="logout()">Logout</button>
+
+		<script>
+
+		if (!localStorage.getItem('user')) {
+			document.location.href = 'login.html';
+		}
+
+		document.getElementById('welcome').innerText = 'Welcome ' + localStorage.getItem('user');
+
+		const logout = () =>{
+			localStorage.removeItem('user');
+			document.location.href = 'login.html';
+		}
+
+		</script>
+	</body>
+</html>

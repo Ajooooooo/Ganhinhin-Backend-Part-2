@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Register</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+
+	<body>
+
+		Username
+		<input id='name' type='text'>
+		Password
+		<input id='password' type='password'>
+
+		<button type="button" onclick="clickButton( document.getElementById('name').value ,document.getElementById('password').value)">Register</button>
+		<a href="login.html">Have an account? Login</a>
+
+		<script>
+
+		const clickButton = (a,b) =>{
+
+			const postData = {
+				name:a,
+				password:b
+			};
+
+			const data = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(postData)
+			}
+
+			async function fetchData() {
+				try {
+					const response = await fetch('http://127.0.0.1:8000/usersRegister',data);
+					const result = await response.json();
+					if (result.status =='success') {
+						alert('Account created');
+						document.location.href = 'login.html';
+					} else {
+						alert('Register failed: ' + result.status);
+					}
+				} catch (error) {
+					console.error('Error:', error);
+				}
+			}
+
+			fetchData()
+
+		}
+
+		</script>
+	</body>
+</html>

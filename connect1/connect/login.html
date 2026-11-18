@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+
+	<body>
+
+		Username
+		<input id='name' type='text'>
+		Password
+		<input id='password' type='password'>
+
+		<button type="button" onclick="clickButton( document.getElementById('name').value ,document.getElementById('password').value)">Login</button>
+		<a href="register.html">No account? Register</a>
+
+		<script>
+
+		const clickButton = (a,b) =>{
+
+			const postData = {
+				name:a,
+				password:b
+			};
+
+			const data = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(postData)
+			}
+
+			async function fetchData() {
+				try {
+					const response = await fetch('http://127.0.0.1:8000/usersLogin',data);
+					const result = await response.json();
+					if (result.status =='success') {
+						localStorage.setItem('user', a);
+						document.location.href = 'index.html';
+					} else {
+						alert('Login failed: ' + result.status);
+					}
+				} catch (error) {
+					console.error('Error:', error);
+				}
+			}
+
+			fetchData()
+
+		}
+
+		</script>
+	</body>
+</html>
